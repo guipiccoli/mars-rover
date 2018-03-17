@@ -4,48 +4,74 @@ package marsrover;
 public class Rover {
 	int x = 0;
 	int y = 0;
-	String face = "N";
-	public Rover() {
-	}
-	public void setPosition(int x, int y, String facing) {
+	
+	String[] directions;
+	private int directionIndex;
+	
+	public Rover(int x, int y, String initialDirection) {
+		directions = new String[] {"W", "N", "E", "S"};
+		
 		this.x = x;
 		this.y = y;
-		this.face = facing;
+		this.setDirection(initialDirection);
 	}
-	public void printPosition() {
-		System.out.println(x +  " "  + y  + " " +  face);
+	
+	
+	private void setDirection(String initialDirection) {
+		switch(initialDirection) {
+			case "W": this.directionIndex = 0; break; //West
+			case "N": this.directionIndex = 1; break; //North
+			case "E": this.directionIndex = 2; break; //East
+			case "S": this.directionIndex = 3; break; //South
+		}	
 	}
-	public void process(String commands) {
+		
+	public void sendCommands(String commands) {
 		for (int i = 0; i < commands.length(); i++  ) {
 			process(commands.charAt(i));
 		}
 	}
+	
 	private void process(Character command) {
-		if (command.equals('L')) {
-			turnLeft();
-		} else if (command.equals('R')) {
-			turnRight();
-		} else if (command.equals('M')) {
-			move();
-		} else {
-			throw new IllegalArgumentException("Comando inválido");
+		switch(command) {
+			case 'L': this.turnLeft(); break;
+			case 'R': this.turnRight(); break;
+			case 'M': this.move(); break;
+			default: throw new IllegalArgumentException("Comando inválido");
 		}
 	}
+	
 	private void move() {
-		if (face.equals("N")) {
-			this.y++  ;
-		} else if (face.equals("E")) {
-			this.x++  ;
-		} else if (face.equals("S")) {
-			this.y--;
-		} else if (face.equals("W")) {
-			this.x--;
+		switch(this.directionIndex) {
+			case 0: this.x--; break; //West
+			case 1: this.y++; break; //North
+			case 2: this.x++; break; //East
+			case 3: this.y--; break; //South
 		}
 	}
+	
+	
 	private void turnLeft() {
-		face = (face - 1) < "N" ? "W" : face - 1;
+		if(this.directionIndex == 0) {
+			this.directionIndex = 3;
+		} else {
+			this.directionIndex--;
+		}
 	}
+	
 	private void turnRight() {
-		face = (face +  1) > "W" ? "N" : face +  1;
+		if(this.directionIndex == 3) {
+			this.directionIndex = 0;
+		} else {
+			this.directionIndex++;
+		}
+	}
+	
+	public String getDirection() {
+		return this.directions[this.directionIndex];
+	}
+	
+	public String toString() {
+		return this.x + " " + this.y + " " + this.directions[this.directionIndex];
 	}
 }
