@@ -2,32 +2,18 @@ package marsrover;
 
 
 public class Rover {
-	public static final int N = 1;
-	public static final int E = 2;
-	public static final int S = 3;
-	public static final int W = 4;
 	int x = 0;
 	int y = 0;
-	int face = N;
+	String face = "N";
 	public Rover() {
 	}
-	public void setPosition(int x, int y, int facing) {
+	public void setPosition(int x, int y, String facing) {
 		this.x = x;
 		this.y = y;
 		this.face = facing;
 	}
 	public void printPosition() {
-		char dir = 'N';
-		if (face == 1) {
-			dir = 'N';
-		} else if (face == 2) {
-			dir = 'E';
-		} else if (face == 3) {
-			dir = 'S';
-		} else if (face == 4) {
-			dir = 'W';
-		}
-		System.out.println(x +  " "  + y  + " " +  dir);
+		System.out.println(x +  " "  + y  + " " +  face);
 	}
 	public void process(String commands) {
 		for (int i = 0; i < commands.length(); i++  ) {
@@ -46,20 +32,20 @@ public class Rover {
 		}
 	}
 	private void move() {
-		if (face == N) {
+		if (face.equals("N")) {
 			this.y++  ;
-		} else if (face == E) {
+		} else if (face.equals("E")) {
 			this.x++  ;
-		} else if (face == S) {
+		} else if (face.equals("S")) {
 			this.y--;
-		} else if (face == W) {
+		} else if (face.equals("W")) {
 			this.x--;
 		}
 	}
 	private void turnLeft() {
-		face = (face - 1) < N ? W : face - 1;
+		face = (face - 1) < "N" ? "W" : face - 1;
 	}
 	private void turnRight() {
-		face = (face +  1) > W ? N : face +  1;
+		face = (face +  1) > "W" ? "N" : face +  1;
 	}
 }
