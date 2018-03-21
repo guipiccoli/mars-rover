@@ -2,11 +2,14 @@ package marsrover;
 
 
 public class Rover {
-	int x = 0;
-	int y = 0;
+	private int x;
+	private int y;
 	
-	String[] directions;
+	private String[] directions;
 	private int directionIndex;
+	
+	public int limitX;
+	public int limitY;
 	
 	public Rover(int x, int y, String initialDirection) {
 		directions = new String[] {"W", "N", "E", "S"};
@@ -14,6 +17,11 @@ public class Rover {
 		this.x = x;
 		this.y = y;
 		this.setDirection(initialDirection);
+	}
+	
+	public void setLimit(int limitX, int limitY) {
+		this.limitX = limitX;
+		this.limitY = limitY;
 	}
 	
 	
