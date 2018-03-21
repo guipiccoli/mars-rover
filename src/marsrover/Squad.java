@@ -16,7 +16,10 @@ public class Squad {
 	}
 	
 	public Squad(ArrayList<Rover> rovers, int limitX, int limitY) {
-		this.rovers.forEach(r -> r.setLimit(limitX, limitY));
+		for(Rover r : rovers) {
+			r.setLimit(limitX, limitY);
+		}
+		
 		this.rovers = new ArrayList<Rover>(rovers);	
 	}
 	
@@ -27,5 +30,15 @@ public class Squad {
 	
 	public void removeRover(int index) {
 		this.rovers.remove(index);
+	}
+	
+	public String toString() {
+		String result = "";
+		for(Rover r : this.rovers) {
+			result += r.toString();
+			result += "\n";
+		}
+		
+		return result;
 	}
 }
