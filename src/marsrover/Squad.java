@@ -34,8 +34,11 @@ public class Squad {
 	
 	public String toString() {
 		String result = "";
-		for(Rover r : this.rovers) {
+		for(int i = 0; i < this.rovers.size(); i ++) {
+			Rover r = this.rovers.get(i);
+			result += "Rover: " + i + "\n";
 			result += r.toString();
+			result += "\n";
 			result += "\n";
 		}
 		

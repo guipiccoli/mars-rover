@@ -11,6 +11,8 @@ public class Rover {
 	public int limitX;
 	public int limitY;
 	
+	public boolean movementError = false;
+	
 	public Rover(int x, int y, String initialDirection) {
 		directions = new String[] {"W", "N", "E", "S"};
 		
@@ -35,8 +37,20 @@ public class Rover {
 	}
 		
 	public void sendCommands(String commands) {
-		for (int i = 0; i < commands.length(); i++  ) {
+		int initialX = this.x;
+		int initialY = this.y;
+		int initialDirectionIndex = this.directionIndex;
+
+		for (int i = 0; i < commands.length(); i++ ) {
 			process(commands.charAt(i));
+		}
+		
+		if(this.movementError) {
+			this.x = initialX;
+			this.y = initialY;
+			this.directionIndex = initialDirectionIndex;
+			
+			throw new IllegalArgumentException("Movimentação inválida!");
 		}
 	}
 	
@@ -45,17 +59,43 @@ public class Rover {
 			case 'L': this.turnLeft(); break;
 			case 'R': this.turnRight(); break;
 			case 'M': this.move(); break;
-			default: throw new IllegalArgumentException("Comando inválido");
+			default: this.movementError = true;
 		}
 	}
 	
 	private void move() {
-		switch(this.directionIndex) {
-			case 0: this.x--; break; //West
-			case 1: this.y++; break; //North
-			case 2: this.x++; break; //East
-			case 3: this.y--; break; //South
+		if(this.directionIndex == 0) {
+			if(this.x>=1) 
+				this.x--; 
+			else
+				this.movementError = true;
 		}
+		
+		else if(directionIndex == 1) {
+			if(this.limitY > y)
+				this.y++; 
+			else 
+				this.movementError = true;
+		}
+		
+		else if(directionIndex == 2) {
+			if(this.limitX > x)
+				this.x++; 
+			else
+				this.movementError = true;
+		}
+		
+		else if(directionIndex == 3) {
+			if(this.y>=1)
+				this.y--; 
+			else 
+				this.movementError = true;
+		}
+		
+		else {
+			this.movementError = true;
+		}
+		
 	}
 	
 	

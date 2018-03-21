@@ -11,7 +11,7 @@ public class App {
 		Plateau plateau = new Plateau(new int[] {5,5});
 		ArrayList<Rover> rovers = new ArrayList<Rover>();
 		Rover gesiel = new Rover(1, 2, "N");
-		Rover gesiel2 = new Rover(3, 3, "E");
+		Rover gesiel2 = new Rover(4, 4, "E");
 		rovers.add(gesiel);
 		rovers.add(gesiel2);
 		
@@ -19,9 +19,14 @@ public class App {
 		Rover gesiel3 = new Rover(0, 0, "N");
 		squad.addRover(gesiel3);
 		
-		
-		gesiel.sendCommands("LMLMLMLMM");
-		gesiel2.sendCommands("MMRMMRMRRM");
+		try {
+			gesiel.sendCommands("LMLMLMLMM");
+			gesiel2.sendCommands("MMMMMRMRRM");
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(squad);
+		}
 		
 		System.out.println(squad);
 	}
