@@ -21,6 +21,14 @@ public class Rover {
 		this.setDirection(initialDirection);
 	}
 	
+	
+	public int [] getPosition() {
+		int[] direction =  new int [2];
+		direction [0] = this.x;
+		direction [1] = this.y;
+		return direction;
+	}
+	
 	public void setLimit(int limitX, int limitY) {
 		this.limitX = limitX;
 		this.limitY = limitY;
@@ -50,7 +58,7 @@ public class Rover {
 			this.y = initialY;
 			this.directionIndex = initialDirectionIndex;
 			
-			throw new IllegalArgumentException("Movimentação inválida!");
+			throw new IllegalArgumentException("Movimentação inválida em algum Robo. Ele voltará a sua posição de origem!! ");
 		}
 	}
 	
